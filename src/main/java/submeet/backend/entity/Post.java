@@ -1,47 +1,50 @@
 package submeet.backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import submeet.backend.entity.common.BaseEntity;
 
 import java.sql.Timestamp;
 
 @Entity
-@ToString
+@Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class Post extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String description;
-    @Column
-    private int departure;
-    @Column
-    private int destination;
+
+    @OneToOne
+    @JoinColumn(name = "departure_station_id")
+    private Station departureStation;
+    @OneToOne
+    @JoinColumn(name = "destination_station_id")
+    private Station destinationStation;
     @Column
     private String title;
+
     @Column
     private Timestamp start_time;
+
     @Column
     private Timestamp end_time;
+
     @Column
     private String category;
+
     @Column
     private int participants;
+
     @Column
     private int current_participants;
+
     @Column
     private int gender;
+
     @Column
     private int age_range;
-
-
-
-
 }

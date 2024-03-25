@@ -1,29 +1,30 @@
 package submeet.backend.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import submeet.backend.entity.common.BaseEntity;
 
 @Entity
-@ToString
+@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private String name;
+
     @Column
     private String nickName;
+
     @Column
     private String profile_image;
+
     @Column
     private int age;
 }

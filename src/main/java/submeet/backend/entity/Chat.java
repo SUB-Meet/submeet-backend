@@ -1,27 +1,29 @@
 package submeet.backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import submeet.backend.entity.common.BaseEntity;
 
-import java.sql.Timestamp;git
+import java.security.Timestamp;
+
 
 @Entity
-@ToString
+@Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Chat {
+public class Chat extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private int post_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @Column
     private Timestamp appointment_time;

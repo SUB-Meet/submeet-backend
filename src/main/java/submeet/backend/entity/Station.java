@@ -1,25 +1,23 @@
 package submeet.backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.geo.Point;
+import submeet.backend.entity.common.BaseEntity;
 
 @Entity
-@ToString
+@Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Station {
+public class Station extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private String name;
 
     @Column
-    private String location;
+    private Point location;
 }

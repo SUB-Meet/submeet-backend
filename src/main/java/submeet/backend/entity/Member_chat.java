@@ -1,26 +1,28 @@
 package submeet.backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.geo.Point;
+import submeet.backend.entity.common.BaseEntity;
 
 @Entity
-@ToString
+@Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member_chat {
+public class Member_chat extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
+
     @Column
-    private Long member_id;
-    @Column
-    private Long chat_id;
-    @Column
-    private String location;
+    private Point location;
 }
