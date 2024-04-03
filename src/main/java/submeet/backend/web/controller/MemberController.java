@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import submeet.backend.apiPayLoad.ApiResponse;
+import submeet.backend.apiPayLoad.code.status.SuccessStatus;
 import submeet.backend.converter.MemberConverter;
 import submeet.backend.entity.Member;
 import submeet.backend.service.member.MemberService;
@@ -19,9 +21,9 @@ import submeet.backend.web.dto.member.MemberResponseDTO;
 public class MemberController {
     private final MemberService memberService;
     @PostMapping("/")
-    public MemberResponseDTO.MemberJoinResultDTO join(@RequestBody MemberRequestDTO.MemberJoinDTO memberJoinDTO){
+    public ApiResponse<MemberResponseDTO.MemberJoinResultDTO> join(@RequestBody MemberRequestDTO.MemberJoinDTO memberJoinDTO){
         log.info("(controller)name : {}",memberJoinDTO.getName());
         Member member = memberService.join(memberJoinDTO);
-        return MemberConverter.toMemberJoinResultDTO(member);
+        return ApiResponse.of(SuccessStatus.MEMBER_JOIN,MemberConverter.toMemberJoinResultDTO(member));
     }
 }
