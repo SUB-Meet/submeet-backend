@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import submeet.backend.entity.Member;
-import submeet.backend.repository.member.MemberRepository;
+import submeet.backend.repository.MemberRepository;
 import submeet.backend.web.dto.member.MemberRequestDTO;
 
 @Service

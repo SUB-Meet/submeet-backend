@@ -11,8 +11,4 @@ public class RootController {
         return "I'm healthy";
     }
 
-    @GetMapping("/member")
-    public String member(){
-        return "hi";
-    }
 }

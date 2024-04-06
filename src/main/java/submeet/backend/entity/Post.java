@@ -1,10 +1,12 @@
 package submeet.backend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import submeet.backend.entity.common.BaseEntity;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -16,35 +18,18 @@ public class Post extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
+    @NotNull
     private String description;
-
-    @OneToOne
-    @JoinColumn(name = "departure_station_id")
-    private Station departureStation;
-    @OneToOne
-    @JoinColumn(name = "destination_station_id")
-    private Station destinationStation;
-    @Column
+    @NotNull
     private String title;
-
-    @Column
-    private Timestamp start_time;
-
-    @Column
-    private Timestamp end_time;
-
-    @Column
+    private LocalDateTime start_time;
+    private LocalDateTime end_time;
+    @NotNull
     private String category;
-
-    @Column
+    @NotNull
     private int participants;
-
-    @Column
     private int current_participants;
-
-    @Column
     private int gender;
-
-    @Column
     private int age_range;
+    private int status;
 }
