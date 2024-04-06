@@ -10,7 +10,7 @@ import submeet.backend.entity.common.BaseEntity;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member_chat extends BaseEntity {
+public class MemberChat extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
