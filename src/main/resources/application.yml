@@ -5,6 +5,10 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 
+  sql:
+    init:
+      encoding: utf-8
+
   jpa:
     hibernate:
       ddl-auto: update
