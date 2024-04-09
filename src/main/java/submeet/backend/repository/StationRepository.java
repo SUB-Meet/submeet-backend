@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface StationRepository extends JpaRepository<Station,Long> {
     public Optional<Station> findByNameAndLine(String name,String line);
+    public Optional<Station> findByStationCode(String station_code);
 }
