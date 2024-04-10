@@ -20,9 +20,19 @@ import java.util.List;
 @RequestMapping("/api/station")
 public class StationController {
     private final StationCommandService stationCommandService;
+
+    /**
+     * 역 정보 DB에 insert
+     */
     @PostMapping("/")
     public ApiResponse<StationResponseDTO.StationInsertResultDTO> stationDataInsert(@RequestBody StationRequestDTO.StationDataInsertDTO stationDataInsertDTO){
         List<Station> stations = stationCommandService.insertData(stationDataInsertDTO);
+        StationResponseDTO.StationInsertResultDTO insertResultDTO = StationConverter.toInsertResultDTO(stations);
+        return ApiResponse.of(SuccessStatus.STATION_INSERT,insertResultDTO);
+    }
+    @PostMapping("/spatial")
+    public ApiResponse<StationResponseDTO.StationInsertResultDTO> spatialDataInsert(@RequestBody StationRequestDTO.StationSpatialDataInsertDTO stationSpatialDataInsertDTO){
+        List<Station> stations = stationCommandService.insertSpatialData(stationSpatialDataInsertDTO);
         StationResponseDTO.StationInsertResultDTO insertResultDTO = StationConverter.toInsertResultDTO(stations);
         return ApiResponse.of(SuccessStatus.STATION_INSERT,insertResultDTO);
     }

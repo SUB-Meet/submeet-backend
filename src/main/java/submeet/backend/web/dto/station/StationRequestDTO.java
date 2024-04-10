@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Optional;
 
 public class StationRequestDTO {
     @Data
     public static class StationDataInsertDTO{
-        private List<StationData> DATA;
+        private List<StationData> data;
         @Data
         public static class StationData{
             private String line_num;
@@ -17,14 +18,17 @@ public class StationRequestDTO {
             private String fr_code;
         }
     }
-//    @Data
-//    public static class StationSpatialDataInsertDTO{
-//        @Data
-//        public static class StationSpatialData{
-//            private String crdnt_x;
-//            private String crdnt_y;
-//            private String statn_id;
-//            private String
-//        }
-//    }
+
+    @Data
+    public static class StationSpatialDataInsertDTO {
+        private List<StationSpatialData> data;
+        @Data
+        public static class StationSpatialData{
+            private String line;
+            private String name;
+            private Long code;
+            private Double lat;
+            private Double lng;
+        }
+    }
 }

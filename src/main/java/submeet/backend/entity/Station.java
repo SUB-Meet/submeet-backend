@@ -16,7 +16,11 @@ public class Station extends BaseEntity {
     private Long id;
     private String name; //전철역 명
     private Point location; // 역 좌표
-    private String station_code; //전철역 코드
-    private String external_code; //외부 코드
+    private String stationCode; //전철역 코드
+    private String externalCode; //외부 코드
     private String line; //호선 정보
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 }

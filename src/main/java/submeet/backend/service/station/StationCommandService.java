@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StationCommandService {
     public List<Station> insertData(StationRequestDTO.StationDataInsertDTO stationDataInsertDTO);
+
+    List<Station> insertSpatialData(StationRequestDTO.StationSpatialDataInsertDTO stationSpatialDataInsertDTO);
 }
