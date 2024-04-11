@@ -17,4 +17,21 @@ public class StationConverter {
                 .build();
     }
 
+    public static StationResponseDTO.StationSpatialSearchResultDTO toSpatialSearchResultDTO(List<Station> stationList) {
+        List<StationResponseDTO.StationDTO> stationDTOList = stationList.stream()
+                .map(s -> StationResponseDTO.StationDTO.builder()
+                        .station_id(s.getId())
+                        .station_code(s.getStationCode())
+                        .station_name(s.getName())
+                        .lat(s.getLocation().getY())
+                        .lng(s.getLocation().getX())
+                        .line(s.getLine())
+                        .build())
+                .toList();
+
+        return StationResponseDTO.StationSpatialSearchResultDTO.builder()
+                .station_list(stationDTOList)
+                .build();
+
+    }
 }
