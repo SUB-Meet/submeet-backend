@@ -20,7 +20,7 @@ import submeet.backend.web.dto.member.MemberResponseDTO;
 @RestController
 public class MemberController {
     private final MemberService memberService;
-    @PostMapping("/")
+    @PostMapping
     public ApiResponse<MemberResponseDTO.MemberJoinResultDTO> join(@RequestBody MemberRequestDTO.MemberJoinDTO memberJoinDTO){
         Member member = memberService.join(memberJoinDTO);
         return ApiResponse.of(SuccessStatus.MEMBER_JOIN,MemberConverter.toMemberJoinResultDTO(member));

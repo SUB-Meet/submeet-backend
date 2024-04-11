@@ -15,4 +15,25 @@ public class StationResponseDTO {
     public static class StationInsertResultDTO{
         private List<String> station_name_list;
     }
+
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class StationSpatialSearchResultDTO {
+        private List<StationDTO> station_list;
+    }
+
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class StationDTO{
+        private Long station_id;
+        private String station_name;
+        private String station_code;
+        private Double lat;
+        private Double lng;
+        private String line;
+    }
 }

@@ -32,4 +32,8 @@ public class Post extends BaseEntity {
     private int gender;
     private int age_range;
     private int status;
+    @OneToOne(mappedBy = "post")
+    private PostStartStation postStartStation;
+    @OneToOne(mappedBy = "post")
+    private PostEndStation postEndStation;
 }

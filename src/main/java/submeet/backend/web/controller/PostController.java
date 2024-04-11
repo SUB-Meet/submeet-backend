@@ -18,7 +18,7 @@ import submeet.backend.web.dto.post.PostResponseDTO;
 @RequiredArgsConstructor
 public class PostController {
     private final PostCommandService postCommandService;
-    @PostMapping("/")
+    @PostMapping
     public ApiResponse<PostResponseDTO.PostRegisterResultDTO> register(@RequestBody PostRequestDTO.PostRegisterDTO postRegisterDTO){
         Post post = postCommandService.register(postRegisterDTO);
         PostResponseDTO.PostRegisterResultDTO registerResultDTO = PostConverter.toRegisterResultDTO(post);

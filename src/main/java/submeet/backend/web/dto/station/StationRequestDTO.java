@@ -31,4 +31,16 @@ public class StationRequestDTO {
             private Double lng;
         }
     }
+
+    @Data
+    public static class StationSpatialSearchDTO {
+        private Double topLeftLatitude;
+        private Double topLeftLongitude;
+        private Double topRightLatitude;
+        private Double topRightLongitude;
+        private Double bottomLeftLatitude;
+        private Double bottomLeftLongitude;
+        private Double bottomRightLatitude;
+        private Double bottomRightLongitude;
+    }
 }
