@@ -15,6 +15,7 @@ public class Station extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name; //전철역 명
+    @Column(columnDefinition = "point")
     private Point location; // 역 좌표
     private String stationCode; //전철역 코드
     private String externalCode; //외부 코드
