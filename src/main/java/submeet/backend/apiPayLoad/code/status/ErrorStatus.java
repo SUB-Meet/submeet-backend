@@ -18,7 +18,9 @@ public enum ErrorStatus implements BaseErrorCode {
     // 멤버 관려 예외
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
     // 역 관련 예외
-    STATION_NOT_FOUND(HttpStatus.BAD_REQUEST, "STATION4001", "no station!")
+    STATION_NOT_FOUND(HttpStatus.BAD_REQUEST, "STATION4001", "no station!"),
+    // 페이지 에러
+    PAGE_ERROR(HttpStatus.BAD_REQUEST, "PAGE4001", "page error!")
     ;
     private final HttpStatus httpStatus;
     private final String code;
