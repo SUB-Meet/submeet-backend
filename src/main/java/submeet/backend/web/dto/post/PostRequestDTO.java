@@ -22,4 +22,16 @@ public class PostRequestDTO {
         private int gender;
         private int age_range;
     }
+
+    @Getter
+    public static class PostSpatialSearchDTO {
+        private Double topLeftLatitude;
+        private Double topLeftLongitude;
+        private Double topRightLatitude;
+        private Double topRightLongitude;
+        private Double bottomLeftLatitude;
+        private Double bottomLeftLongitude;
+        private Double bottomRightLatitude;
+        private Double bottomRightLongitude;
+    }
 }
