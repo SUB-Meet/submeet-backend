@@ -1,24 +1,15 @@
 package submeet.backend.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import submeet.backend.common.enums.MessageType;
-import submeet.backend.entity.Member;
 import submeet.backend.service.Chatting.ChatCommandService;
 import submeet.backend.service.Chatting.MessageCommandService;
 import submeet.backend.service.member.MemberQueryService;
 import submeet.backend.web.dto.chat.ChatMessageDTO;
 
-import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
