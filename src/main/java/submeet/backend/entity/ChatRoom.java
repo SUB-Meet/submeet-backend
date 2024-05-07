@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import submeet.backend.entity.common.BaseEntity;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,8 @@ public class ChatRoom extends BaseEntity {
 
     @Column
     private LocalDateTime appointmentTime;
+
+    @ColumnDefault("0")
     private Long userCount;
 
     public void setUserCount(Long userCount) {

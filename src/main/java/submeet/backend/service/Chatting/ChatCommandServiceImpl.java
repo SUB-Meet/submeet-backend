@@ -34,6 +34,7 @@ public class ChatCommandServiceImpl implements ChatCommandService {
         ChatRoom chatRoom = ChatRoom.builder()
                 .post(post)
                 .appointmentTime(chatCreateResponseDTO.getAppointment_time())
+                .userCount(0L)
                 .build();
        return chatRepository.save(chatRoom);
     }
@@ -42,14 +43,14 @@ public class ChatCommandServiceImpl implements ChatCommandService {
     @Transactional
     public void plusUserCnt(Long roomId) {
         ChatRoom chatRoom = chatRepository.findById(roomId).orElseThrow(() -> new ChatHandler(ErrorStatus.CHAT_ROOM_NOT_FOUND));
-        chatRoom.setUserCount(chatRoom.getUserCount() + 1);
+        chatRoom.setUserCount(chatRoom.getUserCount() + 1L);
     }
 
     @Override
     @Transactional
     public void minusUserCnt(Long roomId) {
         ChatRoom chatRoom = chatRepository.findById(roomId).orElseThrow(() -> new ChatHandler(ErrorStatus.CHAT_ROOM_NOT_FOUND));
-        chatRoom.setUserCount(chatRoom.getUserCount() - 1);
+        chatRoom.setUserCount(chatRoom.getUserCount() - 1L);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class ChatCommandServiceImpl implements ChatCommandService {
     public Member delMember(Long roomId, Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
         ChatRoom chatRoom = chatRepository.findById(roomId).orElseThrow(() -> new ChatHandler(ErrorStatus.CHAT_ROOM_NOT_FOUND));
-        MemberChat memberChat = memberChatRepository.findByMemberAndChatRoom(member, chatRoom);
+        MemberChat memberChat = memberChatRepository.findByMemberAndChatRoom(member, chatRoom).orElseThrow(()->new ChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND));
         memberChatRepository.delete(memberChat);
         return member;
     }

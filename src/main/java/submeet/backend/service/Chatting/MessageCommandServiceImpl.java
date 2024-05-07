@@ -8,8 +8,9 @@ import submeet.backend.apiPayLoad.exception.handler.ChatHandler;
 import submeet.backend.entity.ChatMessage;
 import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.Member;
+import submeet.backend.entity.MemberChat;
 import submeet.backend.repository.ChatMessageRepository;
-import submeet.backend.repository.ChatRepository;
+import submeet.backend.repository.MemberChatRepository;
 import submeet.backend.service.member.MemberQueryService;
 import submeet.backend.web.dto.chat.ChatMessageDTO;
 
@@ -20,14 +21,15 @@ public class MessageCommandServiceImpl implements MessageCommandService {
     private final ChatMessageRepository chatMessageRepository;
     private final ChatQueryService chatQueryService;
     private final MemberQueryService memberQueryService;
+    private final MemberChatRepository memberChatRepository;
     @Override
     @Transactional
     public ChatMessage save(ChatMessageDTO chatMessageDTO) {
         ChatRoom chatRoom = chatQueryService.findById(chatMessageDTO.getChatRoomId());
-        Member member = memberQueryService.findMember(chatMessageDTO.getMemberId());
+        Member member  = memberQueryService.findMember(chatMessageDTO.getMemberId());
+        MemberChat memberChat = memberChatRepository.findByMemberAndChatRoom(member, chatRoom).orElseThrow(()->new ChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND));
         ChatMessage chatMessage = ChatMessage.builder()
-                .chatRoom(chatRoom)
-                .sender(member)
+                .memberChat(memberChat)
                 .type(chatMessageDTO.getMessageType())
                 .message(chatMessageDTO.getMessage())
                 .build();

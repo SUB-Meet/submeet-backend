@@ -18,12 +18,9 @@ public class ChatMessage extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_room_id")
-    private ChatRoom chatRoom;
+    @JoinColumn(name = "member_chat_id")
+    MemberChat memberChat;
 
-    @OneToOne
-    @JoinColumn(name = "member_id")
-    private Member sender;
     private String type;
 
     @Column(columnDefinition = "TEXT")

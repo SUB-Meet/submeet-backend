@@ -6,7 +6,7 @@ import submeet.backend.web.dto.chat.ChatResponseDTO;
 public class ChatConverter {
     public static ChatResponseDTO.ChatCreateResultDTO toChatCreateResultDTO(ChatRoom chatRoom){
         return ChatResponseDTO.ChatCreateResultDTO.builder()
-                .chat_id(chatRoom.getId())
+                .chat_room_id(chatRoom.getId())
                 .build();
     }
 }

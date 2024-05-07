@@ -5,6 +5,8 @@ import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.Member;
 import submeet.backend.entity.MemberChat;
 
+import java.util.Optional;
+
 public interface MemberChatRepository extends JpaRepository<MemberChat, Long> {
-    public MemberChat findByMemberAndChatRoom(Member member, ChatRoom chatRoom);
+    public Optional<MemberChat> findByMemberAndChatRoom(Member member, ChatRoom chatRoom);
 }

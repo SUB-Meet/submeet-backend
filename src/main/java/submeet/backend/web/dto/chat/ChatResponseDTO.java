@@ -11,6 +11,6 @@ public class ChatResponseDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ChatCreateResultDTO{
-        private Long chat_id;
+        private Long chat_room_id;
     }
 }
