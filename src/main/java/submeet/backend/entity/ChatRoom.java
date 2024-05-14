@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import submeet.backend.entity.common.BaseEntity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -15,7 +16,7 @@ import java.security.Timestamp;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Chat extends BaseEntity {
+public class ChatRoom extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +27,12 @@ public class Chat extends BaseEntity {
     private Post post;
 
     @Column
-    private Timestamp appointment_time;
+    private LocalDateTime appointmentTime;
+
+    @ColumnDefault("0")
+    private Long userCount;
+
+    public void setUserCount(Long userCount) {
+        this.userCount = userCount;
+    }
 }

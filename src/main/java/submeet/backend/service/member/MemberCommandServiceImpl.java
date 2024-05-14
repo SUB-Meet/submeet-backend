@@ -12,7 +12,7 @@ import submeet.backend.web.dto.member.MemberRequestDTO;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
-public class MemberServiceImpl implements MemberService{
+public class MemberCommandServiceImpl implements MemberCommandService {
     private final MemberRepository memberRepository;
     @Override
     @Transactional

@@ -7,19 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import submeet.backend.entity.common.BaseEntity;
 
+@Builder
 @Entity
 @Getter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class PostEndStation extends BaseEntity {
+@NoArgsConstructor
+public class ChatMessage extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "station_id")
-    Station station;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    Post post;
+    @JoinColumn(name = "member_chat_id")
+    MemberChat memberChat;
+
+    private String type;
+
+    @Column(columnDefinition = "TEXT")
+    private String message;
 }
