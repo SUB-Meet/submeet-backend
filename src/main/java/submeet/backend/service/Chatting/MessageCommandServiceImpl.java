@@ -28,6 +28,9 @@ public class MessageCommandServiceImpl implements MessageCommandService {
         ChatRoom chatRoom = chatQueryService.findById(chatMessageDTO.getChatRoomId());
         Member member  = memberQueryService.findMember(chatMessageDTO.getMemberId());
         MemberChat memberChat = memberChatRepository.findByMemberAndChatRoom(member, chatRoom).orElseThrow(()->new ChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND));
+        if(!memberChat.getStatus()){
+            throw new ChatHandler(ErrorStatus.NO_ACCESS_MEMBER_CHAT);
+        }
         ChatMessage chatMessage = ChatMessage.builder()
                 .memberChat(memberChat)
                 .type(chatMessageDTO.getMessageType())
