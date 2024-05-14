@@ -60,11 +60,19 @@ public class ChatCommandServiceImpl implements ChatCommandService {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
         ChatRoom chatRoom = chatRepository.findById(roomId).orElseThrow(() -> new ChatHandler(ErrorStatus.CHAT_ROOM_NOT_FOUND));
         if(memberChatRepository.existsByMemberAndChatRoom(member,chatRoom)){
-            throw new MemberChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND);
+            MemberChat memberChat = memberChatRepository.findByMemberAndChatRoom(member, chatRoom).orElseThrow(() -> new ChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND));
+            if(memberChat.getStatus()){
+                throw new MemberChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND);
+            }
+            else{
+                memberChat.setStatus(true);
+                return memberChat.getMember();
+            }
         }
         MemberChat memberChat = MemberChat.builder()
                 .member(member)
                 .chatRoom(chatRoom)
+                .status(true)
                 .build();
         MemberChat savedMemberChat = memberChatRepository.save(memberChat);
         return savedMemberChat.getMember();
@@ -76,7 +84,7 @@ public class ChatCommandServiceImpl implements ChatCommandService {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
         ChatRoom chatRoom = chatRepository.findById(roomId).orElseThrow(() -> new ChatHandler(ErrorStatus.CHAT_ROOM_NOT_FOUND));
         MemberChat memberChat = memberChatRepository.findByMemberAndChatRoom(member, chatRoom).orElseThrow(()->new ChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND));
-        memberChatRepository.delete(memberChat);
+        memberChat.setStatus(false);
         return member;
     }
 

@@ -5,6 +5,9 @@ import lombok.*;
 import org.springframework.data.geo.Point;
 import submeet.backend.entity.common.BaseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @Getter
@@ -22,4 +25,9 @@ public class MemberChat extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
+    private Boolean status;
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }
