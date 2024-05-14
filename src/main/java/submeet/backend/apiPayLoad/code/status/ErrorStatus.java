@@ -25,7 +25,8 @@ public enum ErrorStatus implements BaseErrorCode {
     POST_NOT_FOUND(HttpStatus.BAD_REQUEST, "POST4001", "no post!"),
     // 채팅방 관련 에러
     CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "CHAT4001","no room!"),
-    MEMBER_CHAT_NOT_FOUND(HttpStatus.NOT_FOUND,"CHAT4002","no member chat!");
+    MEMBER_CHAT_NOT_FOUND(HttpStatus.NOT_FOUND,"CHAT4002","no member chat!"),
+    ALREADY_EXIST_MEMBER_CHAT(HttpStatus.BAD_REQUEST, "CHAT4003", "already exist")
     ;
     private final HttpStatus httpStatus;
     private final String code;

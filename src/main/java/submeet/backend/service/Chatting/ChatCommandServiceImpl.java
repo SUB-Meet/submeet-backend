@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import submeet.backend.apiPayLoad.code.status.ErrorStatus;
 import submeet.backend.apiPayLoad.exception.handler.ChatHandler;
+import submeet.backend.apiPayLoad.exception.handler.MemberChatHandler;
 import submeet.backend.apiPayLoad.exception.handler.MemberHandler;
 import submeet.backend.apiPayLoad.exception.handler.PostHandler;
 import submeet.backend.entity.ChatRoom;
@@ -58,6 +59,9 @@ public class ChatCommandServiceImpl implements ChatCommandService {
     public Member addMember(Long roomId, Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
         ChatRoom chatRoom = chatRepository.findById(roomId).orElseThrow(() -> new ChatHandler(ErrorStatus.CHAT_ROOM_NOT_FOUND));
+        if(memberChatRepository.existsByMemberAndChatRoom(member,chatRoom)){
+            throw new MemberChatHandler(ErrorStatus.MEMBER_CHAT_NOT_FOUND);
+        }
         MemberChat memberChat = MemberChat.builder()
                 .member(member)
                 .chatRoom(chatRoom)

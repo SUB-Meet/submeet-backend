@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
+import submeet.backend.apiPayLoad.ApiResponse;
 import submeet.backend.apiPayLoad.code.status.ErrorStatus;
 import submeet.backend.apiPayLoad.exception.handler.ChatHandler;
 import submeet.backend.apiPayLoad.exception.handler.MemberHandler;
@@ -37,10 +38,11 @@ public class MessageController {
     public void enter(ChatMessageDTO message){
         message.setMessageType(MessageType.ENTER.toString());
         message.setMessage(memberQueryService.findMember(message.getMemberId()).getName() + "님이 채팅방에 참여하였습니다.");
-        chatCommandService.addMember(message.getChatRoomId(),message.getMemberId());
+        chatCommandService.addMember(message.getChatRoomId(), message.getMemberId());
         chatCommandService.plusUserCnt(message.getChatRoomId());
         messageCommandService.save(message);
         template.convertAndSend("/sub/chat/room/" + message.getChatRoomId(), message);
+
     }
 
     /**
