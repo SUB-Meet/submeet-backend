@@ -18,6 +18,7 @@ public enum SuccessStatus implements BaseCode {
     //게시글 관련 응답
     POST_REGISTER(HttpStatus.OK, "POST2001", "post registered"),
     POST_SPATIAL_SEARCH(HttpStatus.OK, "POST2002", "post spatial search success"),
+    POST_NAME_SEARCH(HttpStatus.OK, "POST2003", "post name search success"),
     //역 관련 응답
     STATION_INSERT(HttpStatus.OK, "STATION2001", "station inserted to DB"),
     STATION_SPATIAL_INSERT(HttpStatus.OK,"STATION2002","station spatial inserted to DB"),
