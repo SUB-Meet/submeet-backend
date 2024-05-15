@@ -17,6 +17,7 @@ public interface StationRepository extends JpaRepository<Station,Long> {
      * @return
      */
     public Optional<Station> findByNameAndLine(String name,String line);
+    public List<Station> findByName(String stationName);
 
     /**
      * 역 코드로 역 조회

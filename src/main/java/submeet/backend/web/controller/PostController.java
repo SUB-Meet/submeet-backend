@@ -26,11 +26,24 @@ public class PostController {
     private final PostCommandService postCommandService;
     private final PostQueryService postQueryService;
 
+    /**
+     * 게시물 등록
+     * @param postRegisterDTO
+     * @return
+     */
     @PostMapping
     public ApiResponse<PostResponseDTO.PostRegisterResultDTO> register(@RequestBody PostRequestDTO.PostRegisterDTO postRegisterDTO){
         Post post = postCommandService.register(postRegisterDTO);
         PostResponseDTO.PostRegisterResultDTO registerResultDTO = PostConverter.toRegisterResultDTO(post);
         return ApiResponse.of(SuccessStatus.POST_REGISTER,registerResultDTO);
+    }
+
+
+    @GetMapping
+    public ApiResponse<PostResponseDTO.PostSearchByStationNameDTO> searchByName(@CheckPage @RequestParam(name = "page") Integer page,@RequestParam("station_name") String stationName ){
+        List<Post> postList = postQueryService.searchByStationName(stationName, page);
+        PostResponseDTO.PostSearchByStationNameDTO postSearchByNameDTO =PostConverter.toPostSearchByStationNameDTO(postList);
+        return ApiResponse.of(SuccessStatus.POST_NAME_SEARCH, postSearchByNameDTO);
     }
 
     @PostMapping("/spatial")

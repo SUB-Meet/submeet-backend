@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PostResponseDTO {
     @Builder
@@ -25,7 +26,9 @@ public class PostResponseDTO {
         private Long post_id;
         private String post_title;
         private String departure_station;
+        private String departure_station_line;
         private String destination_station;
+        private String destination_station_line;
         private String category;
         private int age_range;
         private LocalDateTime created_at;
@@ -36,5 +39,13 @@ public class PostResponseDTO {
         private String description;
         private int gender;
         private int status;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PostSearchByStationNameDTO {
+        List<PostDTO> postList;
     }
 }
