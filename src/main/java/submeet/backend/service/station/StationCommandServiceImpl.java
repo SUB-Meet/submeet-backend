@@ -2,10 +2,9 @@ package submeet.backend.service.station;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import submeet.backend.apiPayLoad.code.status.ErrorStatus;
@@ -31,12 +30,20 @@ public class StationCommandServiceImpl implements StationCommandService{
 
 
         return stationData.stream()
-                .map(s -> Station.builder()
-                        .name(s.getStation_nm())
-                        .stationCode(s.getStation_cd())
-                        .externalCode(s.getFr_code())
-                        .line(s.getLine_num())
-                        .build()
+                .map(s ->
+                        {
+                            try {
+                                return Station.builder()
+                                   .name(s.getName())
+                                   .stationCode(s.getStation_code())
+                                   .externalCode(s.getExternal_code())
+                                   .line(s.getLine())
+                                   .location(createPoint(s.getLocation()))
+                                   .build();
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 )
                 .map(stationRepository::save)
                 .toList();
@@ -82,5 +89,12 @@ public class StationCommandServiceImpl implements StationCommandService{
         sb.append(strNum);
 
         return sb.toString();
+    }
+
+    public static Point createPoint(String pointString) throws ParseException {
+        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+        WKTReader wktReader = new WKTReader(geometryFactory);
+        Geometry read = wktReader.read(pointString);
+        return (Point) read;
     }
 }

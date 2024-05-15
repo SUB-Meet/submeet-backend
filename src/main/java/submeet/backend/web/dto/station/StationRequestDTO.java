@@ -12,10 +12,11 @@ public class StationRequestDTO {
         private List<StationData> data;
         @Data
         public static class StationData{
-            private String line_num;
-            private String station_cd;
-            private String station_nm;
-            private String fr_code;
+            private String line;
+            private String station_code;
+            private String location;
+            private String name;
+            private String external_code;
         }
     }
 
