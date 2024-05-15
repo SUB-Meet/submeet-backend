@@ -22,7 +22,9 @@ public enum SuccessStatus implements BaseCode {
     //역 관련 응답
     STATION_INSERT(HttpStatus.OK, "STATION2001", "station inserted to DB"),
     STATION_SPATIAL_INSERT(HttpStatus.OK,"STATION2002","station spatial inserted to DB"),
-    STATION_SPATIAL_SEARCH(HttpStatus.OK,"STATION2003","station spatial search success");
+    STATION_SPATIAL_SEARCH(HttpStatus.OK,"STATION2003","station spatial search success"),
+    STATION_LOCATION_SEARCH(HttpStatus.OK, "STATION2004", "station location search success")
+    ;
 
     private final HttpStatus httpStatus;
     private final String code;

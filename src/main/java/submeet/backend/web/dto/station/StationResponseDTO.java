@@ -36,4 +36,24 @@ public class StationResponseDTO {
         private Double lng;
         private String line;
     }
+
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class StationLocationSearchResultDTO{
+        List<StationLocationDTO> stationLocationList;
+    }
+
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class StationLocationDTO{
+        private Long station_id;
+        private String station_name;
+        private String station_line;
+        private double latitude;
+        private double longitude;
+    }
 }

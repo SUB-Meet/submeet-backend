@@ -34,4 +34,19 @@ public class StationConverter {
                 .build();
 
     }
+
+    public static StationResponseDTO.StationLocationSearchResultDTO toStationLocationSearchResultDTO(List<Station> stationList) {
+        List<StationResponseDTO.StationLocationDTO> stationLocationDTOList = stationList.stream()
+                .map(station -> StationResponseDTO.StationLocationDTO.builder()
+                        .station_id(station.getId())
+                        .station_line(station.getLine())
+                        .station_name(station.getName())
+                        .latitude(station.getLocation().getY())
+                        .longitude(station.getLocation().getX())
+                        .build()
+                ).toList();
+        return StationResponseDTO.StationLocationSearchResultDTO.builder()
+                .stationLocationList(stationLocationDTOList)
+                .build();
+    }
 }

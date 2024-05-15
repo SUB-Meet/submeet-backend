@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface StationQueryService {
     public List<Station> spatialSearch(StationRequestDTO.StationSpatialSearchDTO stationSpatialSearchDTO);
+
+    List<Station> findStationLocation(String stationName);
 }
