@@ -25,4 +25,9 @@ public class StationQueryServiceImpl implements StationQueryService{
         Polygon polygon = geometryFactory.createPolygon(coordinates);
         return stationRepository.findStationWithLocation(polygon);
     }
+
+    @Override
+    public List<Station> findStationLocation(String stationName) {
+        return stationRepository.findByName(stationName);
+    }
 }

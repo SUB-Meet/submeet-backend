@@ -51,5 +51,12 @@ public class StationController {
         return ApiResponse.of(SuccessStatus.STATION_SPATIAL_SEARCH,stationSpatialSearchResultDTO);
     }
 
+    @GetMapping("/location")
+    public ApiResponse<StationResponseDTO.StationLocationSearchResultDTO> stationLocationSearch(@RequestParam(name = "station_name") String stationName){
+        List<Station> stationList = stationQueryService.findStationLocation(stationName);
+        StationResponseDTO.StationLocationSearchResultDTO stationLocationSearchResultDTO = StationConverter.toStationLocationSearchResultDTO(stationList);
+        return ApiResponse.of(SuccessStatus.STATION_LOCATION_SEARCH,stationLocationSearchResultDTO);
+    }
+
 
 }
