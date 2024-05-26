@@ -15,6 +15,7 @@ public enum SuccessStatus implements BaseCode {
 
     //멤버 관련 응답
     MEMBER_JOIN(HttpStatus.OK, "MEMBER2001", "member joined"),
+    MEMBER_LOGIN(HttpStatus.OK, "MEMBER2002" , "login success!" ),
     //게시글 관련 응답
     POST_REGISTER(HttpStatus.OK, "POST2001", "post registered"),
     POST_SPATIAL_SEARCH(HttpStatus.OK, "POST2002", "post spatial search success"),
@@ -23,8 +24,9 @@ public enum SuccessStatus implements BaseCode {
     STATION_INSERT(HttpStatus.OK, "STATION2001", "station inserted to DB"),
     STATION_SPATIAL_INSERT(HttpStatus.OK,"STATION2002","station spatial inserted to DB"),
     STATION_SPATIAL_SEARCH(HttpStatus.OK,"STATION2003","station spatial search success"),
-    STATION_LOCATION_SEARCH(HttpStatus.OK, "STATION2004", "station location search success")
-    ;
+    STATION_LOCATION_SEARCH(HttpStatus.OK, "STATION2004", "station location search success"),
+    //토큰 관련 응답
+    TOKEN_REFRESHED(HttpStatus.OK,"TOKEN2001", "Token Refreshed");
 
     private final HttpStatus httpStatus;
     private final String code;
