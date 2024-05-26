@@ -37,7 +37,7 @@ public class MessageController {
     @MessageMapping(value = "/chat/enter")
     public void enter(ChatMessageDTO message){
         message.setMessageType(MessageType.ENTER.toString());
-        message.setMessage(memberQueryService.findMember(message.getMemberId()).getName() + "님이 채팅방에 참여하였습니다.");
+        message.setMessage(memberQueryService.findMember(message.getMemberId()).getNickName() + "님이 채팅방에 참여하였습니다.");
         chatCommandService.addMember(message.getChatRoomId(), message.getMemberId());
         chatCommandService.plusUserCnt(message.getChatRoomId());
         messageCommandService.save(message);
@@ -63,7 +63,7 @@ public class MessageController {
     @MessageMapping(value = "/chat/leave")
     public void leave(ChatMessageDTO message){
         message.setMessageType(MessageType.LEAVE.toString());
-        message.setMessage(memberQueryService.findMember(message.getMemberId()).getName() + "님이 채팅방에서 나갔습니다.");
+        message.setMessage(memberQueryService.findMember(message.getMemberId()).getNickName() + "님이 채팅방에서 나갔습니다.");
         chatCommandService.delMember(message.getChatRoomId(), message.getMemberId());
         chatCommandService.minusUserCnt(message.getChatRoomId());
         messageCommandService.save(message);

@@ -27,7 +27,7 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	compileOnly 'org.projectlombok:lombok'
@@ -46,6 +46,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.4'
 	implementation group: 'org.webjars', name: 'sockjs-client', version: '1.1.2'
 	implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
+	//JWT token
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	// javax.xml.bind
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 }
 
 dependencyManagement {

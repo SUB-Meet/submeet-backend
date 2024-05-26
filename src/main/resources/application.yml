@@ -25,3 +25,5 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace
       SQL: DEBUG
+jwt:
+  key: ${JWT_SECRET_KEY}

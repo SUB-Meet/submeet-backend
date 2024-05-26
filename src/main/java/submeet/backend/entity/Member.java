@@ -2,6 +2,7 @@ package submeet.backend.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import submeet.backend.entity.common.BaseEntity;
 
@@ -11,20 +12,15 @@ import submeet.backend.entity.common.BaseEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String name;
-
-    @Column
+    @NotNull
     private String nickName;
-
-    @Column
+    @NotNull
     private String profile_image;
-
-    @Column
+    @NotNull
+    private String email;
     private int age;
+    private Boolean gender;
 }

@@ -17,6 +17,7 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // 멤버 관려 예외
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "no member!"),
+    MEMBER_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "already exist"),
     // 역 관련 예외
     STATION_NOT_FOUND(HttpStatus.BAD_REQUEST, "STATION4001", "no station!"),
     // 페이지 에러
