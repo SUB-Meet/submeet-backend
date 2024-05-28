@@ -29,12 +29,12 @@ public class ChatCommandServiceImpl implements ChatCommandService {
 
     @Override
     @Transactional
-    public ChatRoom createChatRoom(ChatRequestDTO.ChatCreateResponseDTO chatCreateResponseDTO) {
-        Post post = postRepository.findById(chatCreateResponseDTO.getPost_id()).orElseThrow(() -> new PostHandler(ErrorStatus.POST_NOT_FOUND));
+    public ChatRoom createChatRoom(ChatRequestDTO.ChatCreateRequestDTO chatCreateRequestDTO) {
+        Post post = postRepository.findById(chatCreateRequestDTO.getPost_id()).orElseThrow(() -> new PostHandler(ErrorStatus.POST_NOT_FOUND));
 
         ChatRoom chatRoom = ChatRoom.builder()
                 .post(post)
-                .appointmentTime(chatCreateResponseDTO.getAppointment_time())
+                .appointmentTime(chatCreateRequestDTO.getAppointment_time())
                 .userCount(0L)
                 .build();
        return chatRepository.save(chatRoom);

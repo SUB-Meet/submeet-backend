@@ -1,6 +1,7 @@
 package submeet.backend.converter;
 
 import org.springframework.data.domain.Page;
+import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.Post;
 import submeet.backend.web.dto.post.PostResponseDTO;
 
@@ -8,10 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PostConverter {
-    public static PostResponseDTO.PostRegisterResultDTO toRegisterResultDTO(Post post){
+    public static PostResponseDTO.PostRegisterResultDTO toRegisterResultDTO(Post post, ChatRoom chatRoom){
         return PostResponseDTO.PostRegisterResultDTO.builder()
                 .title(post.getTitle())
                 .id(post.getId())
+                .chat_room_id(chatRoom.getId())
+                .member_id(post.getWriter().getId())
                 .build();
     }
 

@@ -17,8 +17,8 @@ public class ChatRoomController {
      * 채팅방 생성
      */
     @PostMapping("/room")
-    public ChatResponseDTO.ChatCreateResultDTO createRoom(@RequestBody ChatRequestDTO.ChatCreateResponseDTO chatCreateResponseDTO){
-        ChatRoom chatRoom = chatCommandService.createChatRoom(chatCreateResponseDTO);
+    public ChatResponseDTO.ChatCreateResultDTO createRoom(@RequestBody ChatRequestDTO.ChatCreateRequestDTO chatCreateRequestDTO){
+        ChatRoom chatRoom = chatCommandService.createChatRoom(chatCreateRequestDTO);
         return ChatConverter.toChatCreateResultDTO(chatRoom);
     }
 

@@ -15,6 +15,8 @@ public class PostResponseDTO {
     @Getter
     public static class PostRegisterResultDTO{
         private Long id;
+        private Long chat_room_id;
+        private Long member_id;
         private String title;
     }
 
