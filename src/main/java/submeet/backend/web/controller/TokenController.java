@@ -2,7 +2,9 @@ package submeet.backend.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import submeet.backend.apiPayLoad.ApiResponse;
 import submeet.backend.apiPayLoad.code.status.SuccessStatus;
@@ -16,6 +18,7 @@ import submeet.backend.web.dto.token.TokenResponseDTO;
 public class TokenController {
     private final TokenService tokenService;
 
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     @GetMapping("/token/expired")
     public ApiResponse<TokenResponseDTO.TokenRefreshDTO> refreshAuth(HttpServletRequest request) {
         String token = request.getHeader("Refresh");
