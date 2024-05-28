@@ -26,7 +26,7 @@ public enum SuccessStatus implements BaseCode {
     STATION_SPATIAL_SEARCH(HttpStatus.OK,"STATION2003","station spatial search success"),
     STATION_LOCATION_SEARCH(HttpStatus.OK, "STATION2004", "station location search success"),
     //토큰 관련 응답
-    TOKEN_REFRESHED(HttpStatus.OK,"TOKEN2001", "Token Refreshed");
+    TOKEN_REFRESHED(HttpStatus.UNAUTHORIZED,"TOKEN2001", "Token Refreshed");
 
     private final HttpStatus httpStatus;
     private final String code;
