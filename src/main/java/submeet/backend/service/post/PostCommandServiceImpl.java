@@ -1,19 +1,17 @@
 package submeet.backend.service.post;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import submeet.backend.apiPayLoad.code.status.ErrorStatus;
+import submeet.backend.apiPayLoad.exception.handler.MemberHandler;
 import submeet.backend.apiPayLoad.exception.handler.StationHandler;
-import submeet.backend.entity.Post;
-import submeet.backend.entity.PostEndStation;
-import submeet.backend.entity.PostStartStation;
-import submeet.backend.entity.Station;
-import submeet.backend.repository.PostEndStationRepository;
-import submeet.backend.repository.PostRepository;
-import submeet.backend.repository.PostStartStationRepository;
-import submeet.backend.repository.StationRepository;
+import submeet.backend.entity.*;
+import submeet.backend.repository.*;
+import submeet.backend.security.TokenService;
+import submeet.backend.service.Chatting.ChatCommandService;
 import submeet.backend.web.dto.post.PostRequestDTO;
 
 @Service
@@ -25,9 +23,16 @@ public class PostCommandServiceImpl implements PostCommandService{
     private final PostEndStationRepository postEndStationRepository;
     private final PostStartStationRepository postStartStationRepository;
     private final PostRepository postRepository;
+    private final TokenService tokenService;
+    private final MemberRepository memberRepository;
+    private final ChatCommandService chatCommandService;
     @Override
-    public Post register(PostRequestDTO.PostRegisterDTO postRegisterDTO) {
+    public Post register(PostRequestDTO.PostRegisterDTO postRegisterDTO, HttpServletRequest httpServletRequest) {
+        // 작성한사람 가져오기
+        String memberEmail = tokenService.getUid(tokenService.getJwtFromHeader(httpServletRequest));
+        Member member = memberRepository.findByEmail(memberEmail).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
 
+        //시작역, 출발역 등록
         Station startStation = stationRepository.findByNameAndLine(postRegisterDTO.getStart_station_name(), postRegisterDTO.getStart_line()).orElseThrow(() -> new StationHandler(ErrorStatus.STATION_NOT_FOUND));
         Station endStation = stationRepository.findByNameAndLine(postRegisterDTO.getEnd_station_name(), postRegisterDTO.getEnd_line()).orElseThrow(() -> new StationHandler(ErrorStatus.STATION_NOT_FOUND));
 
@@ -42,6 +47,7 @@ public class PostCommandServiceImpl implements PostCommandService{
                 .current_participants(postRegisterDTO.getCurrent_participants())
                 .participants(postRegisterDTO.getParticipants())
                 .status(0)
+                .writer(member)
                 .build());
         postStartStationRepository.save(PostStartStation.builder()
                 .post(post)

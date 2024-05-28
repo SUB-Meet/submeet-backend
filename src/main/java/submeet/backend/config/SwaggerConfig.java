@@ -20,21 +20,21 @@ public class SwaggerConfig {
                 .description("SUB MEET API 명세서")
                 .version("1.0.0");
 
-//        String jwtSchemeName = "JWT TOKEN";
-//
-//        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
-//
-//        Components components = new Components()
-//                .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
-//                        .name(jwtSchemeName)
-//                        .type(SecurityScheme.Type.HTTP)
-//                        .scheme("bearer")
-//                        .bearerFormat("JWT"));
+        String jwtSchemeName = "JWT TOKEN";
+
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
+
+        Components components = new Components()
+                .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
+                        .name(jwtSchemeName)
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT"));
 
 
         return new OpenAPI()
-                .info(info);
-//                .addSecurityItem(securityRequirement)
-//                .components(components);
+                .info(info)
+                .addSecurityItem(securityRequirement)
+                .components(components);
     }
 }

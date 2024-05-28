@@ -36,4 +36,15 @@ public class Post extends BaseEntity {
     private PostStartStation postStartStation;
     @OneToOne(mappedBy = "post")
     private PostEndStation postEndStation;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    Member writer;
+    @OneToOne(mappedBy = "post")
+    ChatRoom chatRoom;
+
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 }

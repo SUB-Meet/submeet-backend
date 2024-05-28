@@ -1,6 +1,7 @@
 package submeet.backend.converter;
 
 import org.springframework.data.domain.Page;
+import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.Post;
 import submeet.backend.web.dto.post.PostResponseDTO;
 
@@ -12,12 +13,16 @@ public class PostConverter {
         return PostResponseDTO.PostRegisterResultDTO.builder()
                 .title(post.getTitle())
                 .id(post.getId())
+                .chat_room_id(post.getChatRoom().getId())
+                .member_id(post.getWriter().getId())
                 .build();
     }
 
     public static Page<PostResponseDTO.PostDTO> toPostPageDTO(Page<Post> postPage) {
         return postPage.map(p -> new PostResponseDTO.PostDTO(
                 p.getId(),
+                p.getWriter().getId(),
+                p.getChatRoom().getId(),
                 p.getTitle(),
                 p.getPostStartStation().getStation().getName(),
                 p.getPostStartStation().getStation().getLine(),

@@ -1,5 +1,6 @@
 package submeet.backend.web.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -7,11 +8,15 @@ import submeet.backend.apiPayLoad.ApiResponse;
 import submeet.backend.apiPayLoad.code.status.SuccessStatus;
 import submeet.backend.converter.PostConverter;
 import submeet.backend.converter.StationConverter;
+import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.Post;
 import submeet.backend.entity.Station;
+import submeet.backend.security.TokenService;
+import submeet.backend.service.Chatting.ChatCommandService;
 import submeet.backend.service.post.PostCommandService;
 import submeet.backend.service.post.PostQueryService;
 import submeet.backend.validation.annotation.CheckPage;
+import submeet.backend.web.dto.chat.ChatRequestDTO;
 import submeet.backend.web.dto.post.PostRequestDTO;
 import submeet.backend.web.dto.post.PostResponseDTO;
 import submeet.backend.web.dto.station.StationRequestDTO;
@@ -25,6 +30,7 @@ import java.util.List;
 public class PostController {
     private final PostCommandService postCommandService;
     private final PostQueryService postQueryService;
+    private final ChatCommandService chatCommandService;
 
     /**
      * 게시물 등록
@@ -32,8 +38,15 @@ public class PostController {
      * @return
      */
     @PostMapping
-    public ApiResponse<PostResponseDTO.PostRegisterResultDTO> register(@RequestBody PostRequestDTO.PostRegisterDTO postRegisterDTO){
-        Post post = postCommandService.register(postRegisterDTO);
+    public ApiResponse<PostResponseDTO.PostRegisterResultDTO> register(@RequestBody PostRequestDTO.PostRegisterDTO postRegisterDTO, HttpServletRequest httpServletRequest){
+        Post post = postCommandService.register(postRegisterDTO,httpServletRequest);
+
+        ChatRequestDTO.ChatCreateRequestDTO chatCreatRequestDTO = ChatRequestDTO.ChatCreateRequestDTO.builder()
+                .post_id(post.getId())
+                .appointment_time(post.getStart_time())
+                .build();
+        chatCommandService.createChatRoom(chatCreatRequestDTO);
+
         PostResponseDTO.PostRegisterResultDTO registerResultDTO = PostConverter.toRegisterResultDTO(post);
         return ApiResponse.of(SuccessStatus.POST_REGISTER,registerResultDTO);
     }

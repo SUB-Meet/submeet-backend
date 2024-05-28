@@ -5,7 +5,7 @@ import submeet.backend.entity.Member;
 import submeet.backend.web.dto.chat.ChatRequestDTO;
 
 public interface ChatCommandService {
-    public ChatRoom createChatRoom(ChatRequestDTO.ChatCreateResponseDTO chatCreateResponseDTO);
+    public ChatRoom createChatRoom(ChatRequestDTO.ChatCreateRequestDTO chatCreateRequestDTO);
     public void plusUserCnt(Long roomId);
     public void minusUserCnt(Long roomId);
     public Member addMember(Long roomId, Long memberId);
