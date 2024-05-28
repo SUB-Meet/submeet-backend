@@ -26,6 +26,8 @@ public class PostResponseDTO {
     @Getter
     public static class PostDTO{
         private Long post_id;
+        private Long member_id;
+        private Long chat_room_id;
         private String post_title;
         private String departure_station;
         private String departure_station_line;

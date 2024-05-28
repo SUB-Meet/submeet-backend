@@ -37,6 +37,7 @@ public class ChatCommandServiceImpl implements ChatCommandService {
                 .appointmentTime(chatCreateRequestDTO.getAppointment_time())
                 .userCount(0L)
                 .build();
+        post.setChatRoom(chatRoom);
        return chatRepository.save(chatRoom);
     }
 

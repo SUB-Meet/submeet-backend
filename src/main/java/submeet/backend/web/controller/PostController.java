@@ -45,9 +45,9 @@ public class PostController {
                 .post_id(post.getId())
                 .appointment_time(post.getStart_time())
                 .build();
-        ChatRoom chatRoom = chatCommandService.createChatRoom(chatCreatRequestDTO);
+        chatCommandService.createChatRoom(chatCreatRequestDTO);
 
-        PostResponseDTO.PostRegisterResultDTO registerResultDTO = PostConverter.toRegisterResultDTO(post, chatRoom);
+        PostResponseDTO.PostRegisterResultDTO registerResultDTO = PostConverter.toRegisterResultDTO(post);
         return ApiResponse.of(SuccessStatus.POST_REGISTER,registerResultDTO);
     }
 

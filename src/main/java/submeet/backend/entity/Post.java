@@ -40,4 +40,11 @@ public class Post extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     Member writer;
+    @OneToOne(mappedBy = "post")
+    ChatRoom chatRoom;
+
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 }

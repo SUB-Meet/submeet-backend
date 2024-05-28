@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PostConverter {
-    public static PostResponseDTO.PostRegisterResultDTO toRegisterResultDTO(Post post, ChatRoom chatRoom){
+    public static PostResponseDTO.PostRegisterResultDTO toRegisterResultDTO(Post post){
         return PostResponseDTO.PostRegisterResultDTO.builder()
                 .title(post.getTitle())
                 .id(post.getId())
-                .chat_room_id(chatRoom.getId())
+                .chat_room_id(post.getChatRoom().getId())
                 .member_id(post.getWriter().getId())
                 .build();
     }
@@ -21,6 +21,8 @@ public class PostConverter {
     public static Page<PostResponseDTO.PostDTO> toPostPageDTO(Page<Post> postPage) {
         return postPage.map(p -> new PostResponseDTO.PostDTO(
                 p.getId(),
+                p.getWriter().getId(),
+                p.getChatRoom().getId(),
                 p.getTitle(),
                 p.getPostStartStation().getStation().getName(),
                 p.getPostStartStation().getStation().getLine(),
