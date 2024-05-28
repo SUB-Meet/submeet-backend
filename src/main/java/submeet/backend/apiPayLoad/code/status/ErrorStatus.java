@@ -29,6 +29,7 @@ public enum ErrorStatus implements BaseErrorCode {
     MEMBER_CHAT_NOT_FOUND(HttpStatus.NOT_FOUND,"CHAT4002","no member chat!"),
     ALREADY_EXIST_MEMBER_CHAT(HttpStatus.BAD_REQUEST, "CHAT4003", "already exist"),
     NO_ACCESS_MEMBER_CHAT(HttpStatus.BAD_REQUEST, "CHAT4004", "채팅방에 입장중인 상태가 아닙니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "CHAT4005", "no auth!"),
     ;
     private final HttpStatus httpStatus;
     private final String code;
