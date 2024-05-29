@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import submeet.backend.apiPayLoad.code.BaseCode;
-import submeet.backend.apiPayLoad.code.BaseErrorCode;
 import submeet.backend.apiPayLoad.code.ReasonDTO;
 
 @Getter
@@ -16,6 +15,7 @@ public enum SuccessStatus implements BaseCode {
     //멤버 관련 응답
     MEMBER_JOIN(HttpStatus.OK, "MEMBER2001", "member joined"),
     MEMBER_LOGIN(HttpStatus.OK, "MEMBER2002" , "login success!" ),
+    MEMBER_FOUND(HttpStatus.OK,"MEMBER2003", "member found!"),
     //게시글 관련 응답
     POST_REGISTER(HttpStatus.OK, "POST2001", "post registered"),
     POST_SPATIAL_SEARCH(HttpStatus.OK, "POST2002", "post spatial search success"),
@@ -26,7 +26,11 @@ public enum SuccessStatus implements BaseCode {
     STATION_SPATIAL_SEARCH(HttpStatus.OK,"STATION2003","station spatial search success"),
     STATION_LOCATION_SEARCH(HttpStatus.OK, "STATION2004", "station location search success"),
     //토큰 관련 응답
-    TOKEN_REFRESHED(HttpStatus.UNAUTHORIZED,"TOKEN2001", "Token Refreshed");
+    TOKEN_REFRESHED(HttpStatus.UNAUTHORIZED,"TOKEN2001", "Token Refreshed"),
+    //채팅 관련 응답
+    CHAT_MEMBERS(HttpStatus.OK,"CHAT2001","find member List success"),
+    CHATS_FOUND(HttpStatus.OK,"CHAT2002","find member List success"),
+    ;
 
     private final HttpStatus httpStatus;
     private final String code;

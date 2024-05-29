@@ -27,4 +27,9 @@ public class MemberQueryServiceImpl implements MemberQueryService{
         String email = tokenService.getUid(givenToken);
         return memberRepository.findByEmail(email).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
     }
+
+    @Override
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(()->new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+    }
 }

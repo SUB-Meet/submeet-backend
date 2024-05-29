@@ -6,6 +6,8 @@ import submeet.backend.web.dto.member.MemberRequestDTO;
 import submeet.backend.web.dto.member.MemberResponseDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MemberConverter {
 
@@ -21,6 +23,18 @@ public class MemberConverter {
     public static MemberRequestDTO.MemberDTO toMemberDTO(Member member){
         return MemberRequestDTO.MemberDTO.builder()
                 .id(member.getId())
+                .nick_name(member.getNickName())
+                .email(member.getEmail())
+                .profile_image(member.getProfile_image())
+                .gender(member.getGender())
+                .age(member.getAge())
+                .build();
+    }
+
+    public static MemberResponseDTO.MemberDTO toMemberResponseDTO(Member member){
+        return MemberResponseDTO.MemberDTO.builder()
+                .member_id(member.getId())
+                .nick_name(member.getNickName())
                 .email(member.getEmail())
                 .profile_image(member.getProfile_image())
                 .gender(member.getGender())
@@ -35,5 +49,22 @@ public class MemberConverter {
                 .refreshToken(token.getRefreshToken())
                 .expiration(localDateTime)
                 .build();
+    }
+
+    public static List<MemberResponseDTO.MemberDTO> toMemberDTOList(List<Member> memberList) {
+        return memberList.stream()
+                .map(
+                        m -> {
+                            return MemberResponseDTO.MemberDTO.builder()
+                                    .member_id(m.getId())
+                                    .age(m.getAge())
+                                    .nick_name(m.getNickName())
+                                    .email(m.getEmail())
+                                    .profile_image(m.getProfile_image())
+                                    .gender(m.getGender())
+                                    .build();
+                        }
+                )
+                .collect(Collectors.toList());
     }
 }
