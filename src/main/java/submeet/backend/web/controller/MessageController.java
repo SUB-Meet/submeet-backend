@@ -64,9 +64,9 @@ public class MessageController {
     public void leave(ChatMessageDTO message){
         message.setMessageType(MessageType.LEAVE.toString());
         message.setMessage(memberQueryService.findMember(message.getMemberId()).getNickName() + "님이 채팅방에서 나갔습니다.");
+        messageCommandService.save(message);
         chatCommandService.delMember(message.getChatRoomId(), message.getMemberId());
         chatCommandService.minusUserCnt(message.getChatRoomId());
-        messageCommandService.save(message);
         template.convertAndSend("/sub/chat/room/" + message.getChatRoomId(), message);
     }
 
