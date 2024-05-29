@@ -29,4 +29,17 @@ public class MemberResponseDTO {
         private String refreshToken;
         private LocalDateTime expiration;
     }
+
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class MemberDTO{
+        private Long member_id;
+        private Integer age;
+        private String nick_name;
+        private String profile_image;
+        private String email;
+        private Boolean gender;
+    }
 }

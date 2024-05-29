@@ -7,4 +7,6 @@ public interface MemberQueryService {
     public Member findMember(Long memberId);
 
     public Member login(HttpServletRequest httpServletRequest);
+
+    public Member findMemberByEmail(String email);
 }
