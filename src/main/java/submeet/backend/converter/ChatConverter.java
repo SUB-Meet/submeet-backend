@@ -1,5 +1,7 @@
 package submeet.backend.converter;
 
+import org.springframework.data.domain.Page;
+import submeet.backend.entity.ChatMessage;
 import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.MemberChat;
 import submeet.backend.web.dto.chat.ChatResponseDTO;

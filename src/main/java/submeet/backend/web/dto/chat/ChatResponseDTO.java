@@ -43,4 +43,26 @@ public class ChatResponseDTO {
         private Long post_id;
         private Long user_count;
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ChatMessageListDTO {
+        List<MessageDTO> message_list;
+    }
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class MessageDTO {
+        private Long message_id;
+        private LocalDateTime created_at;
+        private String message;
+        private String type;
+        private Long member_id;
+        private String profile_image;
+        private String nick_name;
+        private String email;
+    }
 }

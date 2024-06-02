@@ -27,6 +27,9 @@ public class MemberChat extends BaseEntity {
     private ChatRoom chatRoom;
     private Boolean status;
 
+    @OneToMany(mappedBy = "memberChat")
+    List<ChatMessage> messageList = new ArrayList<>();
+
     public void setStatus(Boolean status) {
         this.status = status;
     }

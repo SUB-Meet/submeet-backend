@@ -1,24 +1,35 @@
 package submeet.backend.web.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import submeet.backend.apiPayLoad.ApiResponse;
+import submeet.backend.apiPayLoad.code.status.ErrorStatus;
 import submeet.backend.apiPayLoad.code.status.SuccessStatus;
+import submeet.backend.apiPayLoad.exception.handler.ChatHandler;
 import submeet.backend.converter.ChatConverter;
 import submeet.backend.converter.MemberChatConverter;
 import submeet.backend.converter.MemberConverter;
+import submeet.backend.entity.ChatMessage;
 import submeet.backend.entity.ChatRoom;
 import submeet.backend.entity.Member;
 import submeet.backend.entity.MemberChat;
+import submeet.backend.repository.ChatMessageRepository;
 import submeet.backend.repository.MemberChatRepository;
+import submeet.backend.security.TokenService;
 import submeet.backend.service.Chatting.ChatCommandService;
 import submeet.backend.service.Chatting.ChatQueryService;
+import submeet.backend.service.Chatting.MessageQueryService;
 import submeet.backend.service.member.MemberQueryService;
+import submeet.backend.validation.annotation.CheckPage;
 import submeet.backend.web.dto.chat.ChatRequestDTO;
 import submeet.backend.web.dto.chat.ChatResponseDTO;
 import submeet.backend.web.dto.member.MemberResponseDTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +39,8 @@ public class ChatRoomController {
     private final ChatQueryService chatQueryService;
     private final MemberChatRepository memberChatRepository;
     private final MemberQueryService memberQueryService;
+    private final TokenService tokenService;
+    private final MessageQueryService messageQueryService;
     /**
      * 채팅방 생성
      */
@@ -69,5 +82,46 @@ public class ChatRoomController {
                 .chat_list(chatRoomDTOList)
                 .build();
         return ApiResponse.of(SuccessStatus.CHATS_FOUND,result);
+    }
+
+    /**
+     * 채팅 과거 내용 조회
+     * @param chatRoomId
+     * @return
+     */
+    @GetMapping("/room/history/{chatRoomId}")
+    public ApiResponse<ChatResponseDTO.ChatMessageListDTO> getChatHistory(
+            @PathVariable Long chatRoomId) {
+        ChatRoom chatRoom = chatQueryService.findById(chatRoomId);
+        List<MemberChat> memberChatList = memberChatRepository.findByChatRoom(chatRoom);
+        List<List<ChatMessage>> messageDoubleList = memberChatList.stream()
+                .map(
+                        MemberChat::getMessageList
+                )
+                .toList();
+        List<ChatResponseDTO.MessageDTO> messageDTOList = new ArrayList<>();
+        for (List<ChatMessage> chatMessages : messageDoubleList) {
+            for (ChatMessage chatMessage : chatMessages) {
+                MemberChat memberChat = chatMessage.getMemberChat();
+                ChatResponseDTO.MessageDTO messageDTO = ChatResponseDTO.MessageDTO.builder()
+                        .created_at(chatMessage.getCreatedAt())
+                        .message_id(chatMessage.getId())
+                        .message(chatMessage.getMessage())
+                        .type(chatMessage.getType())
+                        .profile_image(memberChat.getMember().getProfile_image())
+                        .nick_name(memberChat.getMember().getNickName())
+                        .member_id(memberChat.getMember().getId())
+                        .email(memberChat.getMember().getEmail())
+                        .build();
+                messageDTOList.add(messageDTO);
+            }
+        }
+
+
+
+        ChatResponseDTO.ChatMessageListDTO chatMessageListDTO = ChatResponseDTO.ChatMessageListDTO.builder()
+                .message_list(messageDTOList)
+                .build();
+        return ApiResponse.of(SuccessStatus.CHATS_FOUND,chatMessageListDTO);
     }
 }
