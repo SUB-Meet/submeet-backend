@@ -42,6 +42,8 @@ public class ChatResponseDTO {
         private LocalDateTime appointment_time;
         private Long post_id;
         private Long user_count;
+        private String category;
+        private String post_title;
     }
 
     @Getter

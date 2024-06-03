@@ -23,6 +23,8 @@ public class ChatConverter {
                         .appointment_time(c.getAppointmentTime())
                         .post_id(c.getPost().getId())
                         .user_count(c.getUserCount())
+                        .post_title(c.getPost().getTitle())
+                        .category(c.getPost().getCategory())
                         .build();}
                 )
                 .collect(Collectors.toList());
