@@ -44,11 +44,9 @@ public class MemberController {
         return ApiResponse.of(SuccessStatus.MEMBER_LOGIN, MemberConverter.toLoginResultDTO(member, newToken, expiration) );
     }
 
-    @GetMapping
-    public ApiResponse<MemberResponseDTO.MemberDTO> getMember(HttpServletRequest httpServletRequest){
-        String token = tokenService.getJwtFromHeader(httpServletRequest);
-        String email = tokenService.getUid(token);
-        Member member = memberQueryService.findMemberByEmail(email);
+    @GetMapping("/{memberId}")
+    public ApiResponse<MemberResponseDTO.MemberDTO> getMember(@PathVariable Long memberId){
+        Member member = memberQueryService.findMember(memberId);
         return ApiResponse.of(SuccessStatus.MEMBER_FOUND, MemberConverter.toMemberResponseDTO(member));
     }
 
