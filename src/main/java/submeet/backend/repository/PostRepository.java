@@ -23,4 +23,5 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     public Page<Post> findPostByLocation(@Param("appPolygon") Polygon appPolygon, Pageable pageable);
 
     public List<Post> findByPostStartStation(PostStartStation postStartStation);
+    public Post deletePostById(Long id);
 }

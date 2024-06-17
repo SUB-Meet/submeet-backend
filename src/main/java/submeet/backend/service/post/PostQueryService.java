@@ -10,4 +10,6 @@ public interface PostQueryService {
     Page<Post> spatialSearch(PostRequestDTO.PostSpatialSearchDTO postSpatialSearchDTO, Integer page);
 
     List<Post> searchByStationName(String stationName, Integer page);
+
+    Post findById(Long postId);
 }

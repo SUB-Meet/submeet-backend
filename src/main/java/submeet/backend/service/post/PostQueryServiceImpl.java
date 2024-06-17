@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import submeet.backend.apiPayLoad.code.status.ErrorStatus;
+import submeet.backend.apiPayLoad.exception.handler.PostHandler;
 import submeet.backend.entity.Post;
 import submeet.backend.entity.PostStartStation;
 import submeet.backend.entity.Station;
@@ -59,5 +61,10 @@ public class PostQueryServiceImpl implements PostQueryService{
             postList.addAll(postListInStartStation);
         }
         return postList;
+    }
+
+    @Override
+    public Post findById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new PostHandler(ErrorStatus.POST_NOT_FOUND));
     }
 }

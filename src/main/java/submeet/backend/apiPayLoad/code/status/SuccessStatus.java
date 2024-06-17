@@ -20,6 +20,7 @@ public enum SuccessStatus implements BaseCode {
     POST_REGISTER(HttpStatus.OK, "POST2001", "post registered"),
     POST_SPATIAL_SEARCH(HttpStatus.OK, "POST2002", "post spatial search success"),
     POST_NAME_SEARCH(HttpStatus.OK, "POST2003", "post name search success"),
+    POST_DELETE(HttpStatus.OK, "POST2004", "delete success"),
     //역 관련 응답
     STATION_INSERT(HttpStatus.OK, "STATION2001", "station inserted to DB"),
     STATION_SPATIAL_INSERT(HttpStatus.OK,"STATION2002","station spatial inserted to DB"),
@@ -29,7 +30,7 @@ public enum SuccessStatus implements BaseCode {
     TOKEN_REFRESHED(HttpStatus.UNAUTHORIZED,"TOKEN2001", "Token Refreshed"),
     //채팅 관련 응답
     CHAT_MEMBERS(HttpStatus.OK,"CHAT2001","find member List success"),
-    CHATS_FOUND(HttpStatus.OK,"CHAT2002","find member List success"),
+    CHATS_FOUND(HttpStatus.OK,"CHAT2002","find member List success")
     ;
 
     private final HttpStatus httpStatus;

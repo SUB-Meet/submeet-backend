@@ -52,4 +52,11 @@ public class PostResponseDTO {
     public static class PostSearchByStationNameDTO {
         List<PostDTO> postList;
     }
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PostDeleteResultDTO{
+        Long post_id;
+    }
 }

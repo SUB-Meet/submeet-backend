@@ -6,4 +6,6 @@ import submeet.backend.web.dto.post.PostRequestDTO;
 
 public interface PostCommandService {
     public Post register(PostRequestDTO.PostRegisterDTO postRegisterDTO, HttpServletRequest httpServletRequest);
+
+    public void delete(Post post);
 }

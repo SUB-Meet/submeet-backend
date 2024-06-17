@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import submeet.backend.apiPayLoad.code.status.ErrorStatus;
 import submeet.backend.apiPayLoad.exception.handler.MemberHandler;
+import submeet.backend.apiPayLoad.exception.handler.PostHandler;
 import submeet.backend.apiPayLoad.exception.handler.StationHandler;
 import submeet.backend.entity.*;
 import submeet.backend.repository.*;
 import submeet.backend.security.TokenService;
 import submeet.backend.service.Chatting.ChatCommandService;
 import submeet.backend.web.dto.post.PostRequestDTO;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +62,10 @@ public class PostCommandServiceImpl implements PostCommandService{
                 .build());
 
         return post;
+    }
+
+    @Override
+    public void delete(Post post) {
+        postRepository.delete(post);
     }
 }

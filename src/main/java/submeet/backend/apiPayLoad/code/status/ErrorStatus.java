@@ -24,6 +24,7 @@ public enum ErrorStatus implements BaseErrorCode {
     PAGE_ERROR(HttpStatus.BAD_REQUEST, "PAGE4001", "page error!"),
     // 게시글 관련 에러
     POST_NOT_FOUND(HttpStatus.BAD_REQUEST, "POST4001", "no post!"),
+    NO_DELETE_AUTHORIZATION(HttpStatus.BAD_REQUEST, "POST4002", "no auth"),
     // 채팅방 관련 에러
     CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "CHAT4001","no room!"),
     MEMBER_CHAT_NOT_FOUND(HttpStatus.NOT_FOUND,"CHAT4002","no member chat!"),

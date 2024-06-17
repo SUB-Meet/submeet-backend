@@ -5,10 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import submeet.backend.apiPayLoad.ApiResponse;
+import submeet.backend.apiPayLoad.code.status.ErrorStatus;
 import submeet.backend.apiPayLoad.code.status.SuccessStatus;
+import submeet.backend.apiPayLoad.exception.handler.PostHandler;
 import submeet.backend.converter.PostConverter;
 import submeet.backend.converter.StationConverter;
 import submeet.backend.entity.ChatRoom;
+import submeet.backend.entity.Member;
 import submeet.backend.entity.Post;
 import submeet.backend.entity.Station;
 import submeet.backend.security.TokenService;
@@ -31,6 +34,7 @@ public class PostController {
     private final PostCommandService postCommandService;
     private final PostQueryService postQueryService;
     private final ChatCommandService chatCommandService;
+    private final TokenService tokenService;
 
     /**
      * 게시물 등록
@@ -57,6 +61,24 @@ public class PostController {
         List<Post> postList = postQueryService.searchByStationName(stationName, page);
         PostResponseDTO.PostSearchByStationNameDTO postSearchByNameDTO =PostConverter.toPostSearchByStationNameDTO(postList);
         return ApiResponse.of(SuccessStatus.POST_NAME_SEARCH, postSearchByNameDTO);
+    }
+
+    @DeleteMapping
+    public ApiResponse<PostResponseDTO.PostDeleteResultDTO> delete(@RequestParam(name = "post_id") Long postId, HttpServletRequest httpServletRequest){
+        Post post = postQueryService.findById(postId);
+        Member writer = post.getWriter();
+        String token = tokenService.getJwtFromHeader(httpServletRequest);
+        String memberEmail = tokenService.getUid(token);
+        if(writer.getEmail().equals(memberEmail)){
+            postCommandService.delete(post);
+        }else{
+            throw new PostHandler(ErrorStatus.NO_DELETE_AUTHORIZATION);
+        }
+        PostResponseDTO.PostDeleteResultDTO result = PostResponseDTO.PostDeleteResultDTO.builder()
+                .post_id(post.getId())
+                .build();
+
+        return ApiResponse.of(SuccessStatus.POST_DELETE,result);
     }
 
     @PostMapping("/spatial")
